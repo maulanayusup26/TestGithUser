@@ -18,7 +18,7 @@ Langkah Instalasi
 
 Clone repository ini:
 
-git clone <https://github.com/maulanayusup26/GitHubUserSearch.git>
+git clone <https://github.com/maulanayusup26/TestGithUser.git>
 
 Buka proyek di Android Studio.
 
