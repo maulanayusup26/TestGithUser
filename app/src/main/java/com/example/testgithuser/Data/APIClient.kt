@@ -22,7 +22,7 @@ object APIClient {
 
             val requestBuilder = original.newBuilder()
                 .header("Accept", "application/vnd.github+json")
-                .header("Authorization", "Bearer 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")
+                .header("Authorization", "Bearer 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")
                 .header("X-GitHub-Api-Version", "2022-11-28")
                 .method(original.method, original.body)
 

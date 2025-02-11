@@ -3,6 +3,7 @@ package com.example.testgithuser
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.action.ViewActions.typeText
@@ -25,11 +26,14 @@ class MainActivityTest {
         ActivityScenario.launch(MainActivity::class.java)
 
         onView(withId(R.id.et_search))
-            .perform(typeText("rogers-dwiputra"))
+            .perform(typeText("maulana"))
 //            .perform(closeSoftKeyboard())
 
         onView(withId(R.id.cl_search))
             .check(matches(isDisplayed()))
-            .check(matches(hasDescendant(withText("rogers-dwiputra"))))
+            .check(matches(hasDescendant(withText("maulana"))))
+
+        onView(withText("maulana"))
+            .perform(click())
     }
 }

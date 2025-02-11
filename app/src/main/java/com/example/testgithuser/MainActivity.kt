@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -36,10 +37,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var imgClear: ImageView
     lateinit var imgAvatar: ImageView
     lateinit var tvUsername: TextView
-    lateinit var clUsersearch: ConstraintLayout
+    lateinit var clUsersearch: CardView
     lateinit var clLoading: ConstraintLayout
 
     private var lastInput: String = ""
+    private var searchHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,29 +63,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setUpView(){
-        etSearch.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
                 val input = s.toString()
-                if(!input.equals("")) {
-                    android.os.Handler(Looper.getMainLooper()).postDelayed({
+
+                searchHandler.removeCallbacksAndMessages(null)
+
+                if (input.isNotEmpty()) {
+                    searchHandler.postDelayed({
                         if (lastInput != input) {
                             lastInput = input
                             getDataSearch(lastInput)
                         }
                     }, 2000)
+                }else{
+                    rvList.visibility = View.VISIBLE
+                    clUsersearch.visibility = View.GONE
                 }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (count>0){
-                    imgClear.visibility = View.VISIBLE
-                }else{
-                    imgClear.visibility = View.GONE
-                }
+                imgClear.visibility = if (count > 0) View.VISIBLE else View.GONE
             }
         })
 
